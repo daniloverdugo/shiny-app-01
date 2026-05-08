@@ -1,9 +1,11 @@
 library(shiny)
 
+api_key <- Sys.getenv("PASSWORD")
+
 # Define UI for application that draws a histogram
 ui <- fluidPage(
   # Application title
-  titlePanel("Primer App en Connect Cloud"),
+  titlePanel("Primer App en Connect Cloud 1"),
 
   # Sidebar with a slider input for number of bins
   sidebarLayout(
@@ -25,6 +27,10 @@ ui <- fluidPage(
 
 # Define server logic required to draw a histogram
 server <- function(input, output) {
+  # Usar la variable en memoria de forma segura
+  # Por ejemplo, para conectarse a una DB o API
+  print(api_key)
+
   output$distPlot <- renderPlot({
     # generate bins based on input$bins from ui.R
     x <- faithful[, 2]
