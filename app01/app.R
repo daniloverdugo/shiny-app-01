@@ -2,6 +2,7 @@ library(shiny)
 
 api_key <- Sys.getenv("PASSWORD")
 
+
 # Define UI for application that draws a histogram
 ui <- fluidPage(
   # Application title
@@ -11,7 +12,9 @@ ui <- fluidPage(
   sidebarLayout(
     sidebarPanel(
       sliderInput("bins",
-        "Número de bins:",
+                  # Usar la variable en memoria de forma segura
+                  # Por ejemplo, para conectarse a una DB o API
+                  print(paste0(":", api_key)),
         min = 1,
         max = 50,
         value = 30
@@ -27,9 +30,6 @@ ui <- fluidPage(
 
 # Define server logic required to draw a histogram
 server <- function(input, output) {
-  # Usar la variable en memoria de forma segura
-  # Por ejemplo, para conectarse a una DB o API
-  print(api_key)
 
   output$distPlot <- renderPlot({
     # generate bins based on input$bins from ui.R
@@ -40,7 +40,7 @@ server <- function(input, output) {
     hist(x,
       breaks = bins, col = "darkgray", border = "white",
       xlab = "Espera próxima erupción en min.",
-      main = "Histograma de tiempo de espera"
+      main = paste0("Histograma de tiempo de espera", api_key)
     )
   })
 }
